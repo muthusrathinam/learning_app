@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,6 +41,20 @@ public class verifyActivity extends AppCompatActivity {
         String phone = getIntent().getStringExtra("phoneNo");
 
         sendVerificationCodeToUser(phone);
+
+        verify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String code = actualOtp.getText().toString();
+
+                if(code.isEmpty() || code.length() < 6){
+                    actualOtp.setError("Wrong otp..");
+                    actualOtp.requestFocus();
+                    return;
+                }
+                verifyCode(code);
+            }
+        });
     }
 
     private void sendVerificationCodeToUser(String phone) {
