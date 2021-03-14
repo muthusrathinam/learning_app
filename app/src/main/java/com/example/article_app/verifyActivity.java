@@ -43,12 +43,26 @@ public class verifyActivity extends AppCompatActivity {
     }
 
     private void sendVerificationCodeToUser(String phone) {
+
+        //used in medihub
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+91" + phone,        // Phone number to verify
                 45,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 TaskExecutors.MAIN_THREAD,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
+
+
+        //  updated from google docs  !!!!!
+
+//        PhoneAuthOptions options =
+//                PhoneAuthOptions.newBuilder(mAuth)
+//                        .setPhoneNumber("+91" + phone)       // Phone number to verify
+//                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+//                        .setActivity(this)                 // Activity (for callback binding)--->this
+//                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+//                        .build();
+//        PhoneAuthProvider.verifyPhoneNumber(options);
     }
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
