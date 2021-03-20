@@ -8,11 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
 
     Button receive;
     EditText phoneNo;
-
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         receive = findViewById(R.id.receiveOtp);
         phoneNo = findViewById(R.id.phoneno);
-
+        auth = FirebaseAuth.getInstance();
 
 
 
@@ -37,5 +40,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        FirebaseUser user = auth.getCurrentUser();
+        if(user != null){
+            sendtoMain();
+        }
+    }
+    private void sendtoMain(){
+        Intent mainIntent = new Intent(MainActivity.this, HomePage.class);
+        startActivity(mainIntent);
+        finish();
     }
 }
